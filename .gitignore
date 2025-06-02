@@ -1,0 +1,28 @@
+# Ignore environment variable files
+.env
+.env.*
+
+# Ignore data directories
+data/
+dados/
+database/
+db/
+
+# Ignore log files
+*.log
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore node modules
+node_modules/
+
+# Ignore backup files
+*.bak
+*.swp
+*.swo

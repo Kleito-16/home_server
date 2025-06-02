@@ -1,0 +1,75 @@
+# Docker Compose file for a network stack including Cloudflared, Pi-hole, and Nginx Proxy Manager.
+#
+# Services:
+#   cloudflared:
+#     - Provides a DNS-over-HTTPS (DoH) proxy using Cloudflare's DNS.
+#     - Exposes DNS on port 5054 and metrics on 8088.
+#     - Runs in host network mode for direct access to network interfaces.
+#
+#   pihole:
+#     - Network-wide ad blocker and DNS server.
+#     - Uses Cloudflared as its upstream DNS resolver.
+#     - Stores configuration and DNS settings in mounted volumes for persistence.
+#     - Runs in host network mode and requires elevated network capabilities.
+#
+#   nginx-proxy-manager:
+#     - Provides a web-based interface for managing Nginx reverse proxy hosts.
+#     - Exposes HTTP (80), HTTPS (443), and management UI (81) ports.
+#     - Stores configuration and SSL certificates in mounted volumes.
+#
+# Notes:
+#   - Environment variables such as PIHOLE_PASSWORD must be set for secure operation.
+#   - Host networking is used for cloudflared and pihole, which may affect port availability.
+#   - Ensure volume paths exist and are writable by the respective containers.
+version: '3'
+
+name: 'net'
+
+services:
+  cloudflared:
+    image: visibilityspots/cloudflared:latest
+    restart: unless-stopped
+    environment:
+      - UPSTREAM1=https://1.1.1.1/dns-query
+      - UPSTREAM2=https://1.0.0.1/dns-query
+      - PORT=5054
+      - ADDRESS=0.0.0.0
+      - METRICS=127.0.0.1:8088
+    network_mode: host
+    
+
+  pihole:
+    image: pihole/pihole:latest
+    restart: unless-stopped
+    depends_on:
+      - cloudflared
+    environment:
+      - DNSMASQ_USER=pihole
+      - WEBPASSWORD=${PIHOLE_PASSWORD}
+      - TZ=America/Sao_Paulo
+      - PIHOLE_DNS_=127.0.0.1#5054
+      - WEB_PORT=8053
+    volumes:
+      - /home/kleito/config-docker/dnsmasq.d:/etc/dnsmasq.d
+      - /home/kleito/config-docker/pihole:/etc/pihole
+    network_mode: host
+    cap_add:
+        - NET_RAW
+  
+  nginx-proxy-manager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    networks:
+      - outside
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+
+networks:
+  outside:
+    external: true
+    name: outside   

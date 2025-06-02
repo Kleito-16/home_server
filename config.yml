@@ -1,0 +1,91 @@
+# Cloudflared Tunnel Configuration for kpluslab.com.br
+# This config exposes your home lab services via Cloudflare Tunnel.
+# Adjust the tunnel and credentials as needed for your environment.
+
+# Replace with your actual tunnel ID and credentials file path
+# tunnel: <TUNNEL-UUID>
+# credentials-file: /path/to/.cloudflared/<TUNNEL-UUID>.json
+
+ingress:
+  # Homepage dashboard
+  - hostname: homepage.kpluslab.com.br
+    service: http://localhost:3000
+
+  # Portainer
+  - hostname: portainer.kpluslab.com.br
+    service: http://localhost:9000
+
+  # Organizr
+  - hostname: organizr.kpluslab.com.br
+    service: http://localhost:890
+
+  # Librespeed
+  - hostname: speed.kpluslab.com.br
+    service: http://localhost:9091
+
+  # MakeMKV
+  - hostname: makemkv.kpluslab.com.br
+    service: http://localhost:5800
+
+  # Handbrake
+  - hostname: handbrake.kpluslab.com.br
+    service: http://localhost:5801
+
+  # Pi-hole
+  - hostname: pihole.kpluslab.com.br
+    service: http://localhost:8053
+
+  # Nginx Proxy Manager
+  - hostname: npm.kpluslab.com.br
+    service: http://localhost:80
+
+  # qBittorrent
+  - hostname: qbittorrent.kpluslab.com.br
+    service: http://localhost:8080
+
+  # Jackett
+  - hostname: jackett.kpluslab.com.br
+    service: http://localhost:9117
+
+  # Bazarr
+  - hostname: bazarr.kpluslab.com.br
+    service: http://localhost:6767
+
+  # Overseerr
+  - hostname: overseerr.kpluslab.com.br
+    service: http://localhost:5055
+
+  # Prowlarr
+  - hostname: prowlarr.kpluslab.com.br
+    service: http://localhost:9696
+
+  # FlareSolverr
+  - hostname: flaresolverr.kpluslab.com.br
+    service: http://localhost:8191
+
+  # SABnzbd
+  - hostname: sabnzbd.kpluslab.com.br
+    service: http://localhost:6789
+
+  # Radarr
+  - hostname: radarr.kpluslab.com.br
+    service: http://localhost:7878
+
+  # Sonarr
+  - hostname: sonarr.kpluslab.com.br
+    service: http://localhost:8989
+
+  # Plex (web interface)
+  - hostname: plex.kpluslab.com.br
+    service: http://localhost:32400
+
+  # Kaizoku
+  - hostname: kaizoku.kpluslab.com.br
+    service: http://localhost:3010
+
+  # Kavita
+  - hostname: kavita.kpluslab.com.br
+    service: http://localhost:5000
+
+  # Default catch-all rule
+  - service: http_status:404

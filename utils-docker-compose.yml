@@ -1,0 +1,75 @@
+version: '3'
+
+name: 'utils'
+
+volumes:
+  portainer_data:
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    restart: unless-stopped
+    volumes:
+      - portainer_data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '9000:9000'
+
+  organizr:
+    image: organizr/organizr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/kleito/config-docker/organizr:/config
+    ports:
+      - '890:80'
+    cap_add:
+      - NET_BIND_SERVICE
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    cap_add:
+      - NET_RAW
+      - SETUID
+
+  zerotier:
+    image: zerotier/zerotier:latest
+    restart: unless-stopped
+    volumes:
+      - /home/kleito/config-docker/zerotier:/var/lib/zerotier-one
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_ADMIN
+    network_mode: host
+
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    restart: unless-stopped
+    environment:
+      - TZ=America/Sao_Paulo
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/kleito/config-docker/librespeed:/config
+    ports:
+      - '9091:80'
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - /home/kleito/config-docker/homepage:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock # (optional) For docker integrations
+    environment:
+      HOMEPAGE_ALLOWED_HOSTS: 192.168.1.16:3000 homepage.kpluslab.com.br/ # required, may need port. See gethomepage.dev/installation/#homepage_allowed_hosts
