@@ -53,9 +53,8 @@ services:
       - /home/akitaonrails/pihole:/etc/pihole
     network_mode: host
     cap_add:
-      - NET_RAWCriei duas esfera 3D em asc onde ficam sse movendo aleatoriamente no terminal.
+      - NET_RAW
 
-  
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
@@ -63,8 +62,8 @@ services:
       - outside
     ports:
       - '80:80'
-      - '81:81'
       - '443:443'
+      - '81:81'
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
@@ -72,4 +71,4 @@ services:
 networks:
   outside:
     external: true
-    name: outside   
+    name: outside
