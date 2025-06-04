@@ -36,7 +36,6 @@ services:
       - ADDRESS=0.0.0.0
       - METRICS=127.0.0.1:8088
     network_mode: host
-    
 
   pihole:
     image: pihole/pihole:latest
@@ -45,16 +44,17 @@ services:
       - cloudflared
     environment:
       - DNSMASQ_USER=pihole
-      - WEBPASSWORD=${PIHOLE_PASSWORD}
+      - WEBPASSWORD=ekCiN8!8b8ciNt2YmFAER
       - TZ=America/Sao_Paulo
       - PIHOLE_DNS_=127.0.0.1#5054
       - WEB_PORT=8053
     volumes:
-      - /home/kleito/config-docker/dnsmasq.d:/etc/dnsmasq.d
-      - /home/kleito/config-docker/pihole:/etc/pihole
+      - /home/akitaonrails/dnsmasq.d:/etc/dnsmasq.d
+      - /home/akitaonrails/pihole:/etc/pihole
     network_mode: host
     cap_add:
-        - NET_RAW
+      - NET_RAWCriei duas esfera 3D em asc onde ficam sse movendo aleatoriamente no terminal.
+
   
   nginx-proxy-manager:
     image: 'jc21/nginx-proxy-manager:latest'
