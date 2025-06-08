@@ -18,6 +18,16 @@ services:
       - '8080:8080'
       - '62609:62609'
 
+  metube:
+    image: ghcr.io/alexta69/metube
+    container_name: metube
+    restart: unless-stopped
+    ports:
+      - "8881:8081"
+    volumes:
+      - /mnt/terachad/Downloads/metube:/downloads
+
+
   jackett:
     image: ghcr.io/linuxserver/jackett:latest
     restart: unless-stopped
@@ -145,3 +155,5 @@ services:
       - /dev/dri:/dev/dri
       - /dev/bus/usb:/dev/bus/usb
     network_mode: host
+
+

@@ -63,6 +63,7 @@ so their ports are bound directly to the host.
 |----------------------|-----------|----------------|---------------------------------|
 | Service              | Host Port |Container Port  | Localhost URL                   | 
 |----------------------|-----------|----------------|---------------------------------| 
+| Metube               | 8881      | 8081           | bhttp://localhost:8081          |
 | qbittorrent          | 8080      | 8080           | http://localhost:8080           | 
 | qbittorrent          | 62609     | 62609          | (for torrenting, not web)       | 
 | jackett              | 9117      | 9117           | http://localhost:9117           | 
@@ -138,4 +139,31 @@ the web interface is at http://localhost:32400/web
 
 ---
 
-_Last updated: May 28, 2025_
+
+
+|----------------------|-----------------------------|------------------------------------|
+| Service              | Host Port                   |Localhost URL                       |
+|----------------------|-----------------------------|------------------------------------|
+| Portainer            | 192.168.18.16:9000          | portainer.kpluslab.local           |
+| Organizr             | 192.168.18.16:890           | organizr.kpluslab.local            |
+| Librespeed           | 192.168.18.16:9091          | speed.kpluslab.local               |
+| Homepage             | 192.168.18.16:3000          | home.kpluslab.local                |
+| MakeMKV              | 192.168.18.16:5800          | makemkv.kpluslab.local             |
+| Handbrake            | 192.168.18.16:5801          | handbrake.kpluslab.local           |
+| Cloudflared (metrics)| 192.168.18.16:8088          | metrics.kpluslab.local             |
+| Pi-hole              | 192.168.18.16:8053          | pihole.kpluslab.local              |
+| Nginx Proxy Manager  | 192.168.18.16:80,81,443     | npm.kpluslab.local                 |
+| qBittorrent          | 192.168.18.16:8080          | qbit.kpluslab.local                |
+| Metube               | 192.168.18.16:8881          | metube.kpluslab.local              |
+| Jackett              | 192.168.18.16:9117          | jackett.kpluslab.local             |
+| Bazarr               | 192.168.18.16:6767          | bazarr.kpluslab.local              |
+| Overseerr            | 192.168.18.16:5055          | request.kpluslab.local             |
+| Prowlarr             | 192.168.18.16:9696          | prowlarr.kpluslab.local            |
+| FlareSolverr         | 192.168.18.16:8191          | solver.kpluslab.local              |
+| SABnzbd              | 192.168.18.16:6789          | sabnzbd.kpluslab.local             |
+| Radarr               | 192.168.18.16:7878          | radarr.kpluslab.local              |
+| Sonarr               | 192.168.18.16:8989          | sonarr.kpluslab.local              |
+| Plex                 | 192.168.18.16:32400         | plex.kpluslab.local                |
+| Kaizoku              | 192.168.18.16:3010          | kaizoku.kpluslab.local             |
+| Kavita               | 192.168.18.16:5000          | kavita.kpluslab.local              |
+|----------------------|-----------------------------|------------------------------------|
